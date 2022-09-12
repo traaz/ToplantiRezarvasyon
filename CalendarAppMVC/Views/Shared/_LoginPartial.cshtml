@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" style="background-color: #dc3c3c"  data-toggle="modal" data-target="#saveModal">
+        Toplantı Oluştur
+    </button>
+
+<!-- Modal -->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Randevu Ekleme/Güncelleme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label">Başlangıç Tarihi :</label>
+                          
+                            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                <input id="inputStartDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
+                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label">Bitiş Tarihi :</label>
+                           
+                            <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                                <input id="inputEndDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" />
+                                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <label class="col-form-label">Başlık : <span style="color: red;font-weight:bold">*</span></label>
+
+                            <input id="inputTitle" type="text" class="form-control " />
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Açıklama :  <span style="color: red;font-weight:bold">*</span></label>
+
+                            <input id="inputDescription" type="text" class="form-control " />
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Dış Firma Adı :</label>
+                            <input id="inputCompany" type="text" class="form-control" />
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Rezervasyon Sahibi :  <span style="color: red;font-weight:bold">*</span></label>
+                            <select id="inputOwner"  class="form-control">
+                               
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Kategori :</label>
+                            <select id="inputCategory"  class="form-control">
+                                <option value="" selected disabled>Kategori Seçiniz...</option>
+                                <option value="1">Eğitim</option>
+                                <option value="2">Toplantı</option>
+                                <option value="3">Diğer</option>
+                            </select>
+
+                        </div>
+
+
+                    </div>
+                   
+
+                </form>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
+                <button id="btnSave" type="button" class="btn btn-primary" style="background-color: #dc3c3c">Kaydet</button>
+                
+            </div>
+            <p class="pl-3 font-weight-light" style="color: red">(*) Doldurulması zorunlu alanlar.</p>
+        </div>
+    </div>
+</div>

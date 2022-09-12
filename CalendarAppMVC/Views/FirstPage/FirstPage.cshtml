@@ -1,0 +1,66 @@
+﻿
+@{ 
+    Layout = "~/Views/Shared/firstScreenLayout.cshtml";
+}
+
+@{
+    <div class="card-deck">
+        <script>
+            
+        </script>
+        <div class="card border-danger mb-5"  style="width: 18rem;">
+            <img class="card-img-top" src="~/images/t2.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Toplantı Odası - 2 (U Masa)</p>
+@*                <a href="@Url.Action("CalendarView", "CalendarPage")" class="text-danger stretched-link">Rezervasyon Yap</a>*@
+                <a href="~/CalendarPage/CalendarView/1" class="text-danger stretched-link">Rezervasyon Yap</a>
+            </div>
+        </div>
+        <div class="card border-danger mb-5" style="width: 18rem;">
+            <img class="card-img-top"  src="~/images/t1.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Toplantı Odası - 1 (Köşe)</p>
+                <a href="~/CalendarPage/CalendarView/2" class="text-danger stretched-link">Rezervasyon Yap</a>
+                @*<a href="Home/Index" class="text-danger stretched-link">Rezervasyon Yap</a>*@
+            </div>
+        </div>
+        <div class="card border-danger mb-5" style="width: 18rem;">
+            <img class="card-img-top"  src="~/images/ot.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Ofis Toplantı Odası</p>
+                @*<a href="Home/Index" class="text-danger stretched-link">Rezervasyon Yap</a>*@
+                <a href="~/CalendarPage/CalendarView/3" class="text-danger stretched-link">Rezervasyon Yap</a>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="card-deck">
+
+        <div class="card border-danger mb-5" style="width: 18rem;">
+            <img class="card-img-top"  src="~/images/eo.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Eğitim Odası</p>
+                @*<a href="Home/Index" class="text-danger stretched-link">Rezervasyon Yap</a>*@
+                <a href="~/CalendarPage/CalendarView/4" class="text-danger stretched-link">Rezervasyon Yap</a>
+            </div>
+        </div>
+        <div class="card border-danger mb-5" style="width: 18rem;">
+            <img class="card-img-top"  src="~/images/s2.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Seminer Salonu - 2</p>
+                @*<a href="Home/Index" class="text-danger stretched-link">Rezervasyon Yap</a>*@
+                <a href="~/CalendarPage/CalendarView/5" class="text-danger stretched-link">Rezervasyon Yap</a>
+            </div>
+        </div>
+        <div class="card border-danger mb-5"  style="width: 18rem;">
+            <img class="card-img-top"  src="~/images/s1.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Seminer Salonu - 1</p>
+                @*<a href="Home/Index" class="text-danger stretched-link">Rezervasyon Yap</a>*@
+                <a href="~/CalendarPage/CalendarView/6" class="text-danger stretched-link">Rezervasyon Yap</a>
+            </div>
+        </div>
+    </div>
+
+}

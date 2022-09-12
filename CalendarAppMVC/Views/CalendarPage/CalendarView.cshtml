@@ -1,0 +1,611 @@
+﻿@model IEnumerable<CalendarAppMVC.Data.Appointment>
+@{
+
+}
+@ViewData["Title"]
+
+
+
+@section Styles{
+
+    <link href="/lib/fullcalendar/core/main.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="/lib/fullcalendar/daygrid/main.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar/timegrid/main.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar/bootstrap/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
+
+
+
+
+
+}
+
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Randevu Detayları</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label">Başlangıç Tarihi :</label>
+
+                            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                <input disabled id="inputStartDateDetail" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
+                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label">Bitiş Tarihi :</label>
+
+                            <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                                <input disabled id="inputEndDateDetail" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" />
+                                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <label class="col-form-label">Başlık :</label>
+
+                            <input disabled id="inputTitleDetail" type="text" class="form-control " />
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Açıklama :</label>
+
+                            <input disabled id="inputDescriptionDetail" type="text" class="form-control " />
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Dış Firma Adı :</label>
+                            <input disabled id="inputCompanyDetail" type="text" class="form-control" />
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Rezervasyon Sahibi :</label>
+                            <input disabled id="inputOwnerDetail" type="text" class="form-control" />
+
+                        </div>
+                        @*<div class="form-group">
+                            <label class="col-form-label">Kategori :</label>
+                            <select disabled id="inputCategoryDetail" type="text" class="form-control"></select>
+
+                        </div>*@
+
+
+                    </div>
+
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <button id="btnDelete" type="button" class="btn btn-secondary" data-dismiss="modal">Sil</button>
+                <button id="btnUpdate" type="button" class="btn btn-primary" style="background-color: #dc3c3c">Güncelle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+
+    @{
+        var id = @Context.Request.RouteValues["id"];
+
+
+        switch (id)
+        {
+            case "1":
+
+                <text>
+                    <h2>Toplantı Odası - 2 (U Masa)</h2>
+                    <br />
+                </text>
+                break;
+            case "2":
+                <text>
+                    <h2>Toplantı Odası - 1 (Köşe)</h2>
+                    <br />
+                </text>
+                break;
+            case "3":
+                <text>
+                    <h2>Ofis Toplantı Odası</h2>
+                    <br />
+                </text>
+                break;
+            case "4":
+                <text>
+                    <h2>Eğitim Odası</h2>
+                    <br />
+                </text>
+                break;
+            case "5":
+                <text>
+                    <h2>Seminer Salonu - 2</h2>
+                    <br />
+                </text>
+                break;
+            case "6":
+                <text>
+                    <h2>Seminer Salonu - 1</h2>
+                    <br />
+                </text>
+                break;
+
+            default:
+                <text>
+                    <h1>
+                        /h1>
+                </text>
+                break;
+        }
+    }
+
+</div>
+
+<div id="calendar">
+
+
+
+
+
+</div>
+
+
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data-10-year-range.js"></script>
+    <script src="~/lib/fullcalendar/core/main.js"></script>
+    <script src="~/lib/fullcalendar/moment/main.js"></script>
+    <script src="~/lib/fullcalendar/moment-timezone/main.js"></script>
+    <script src="/lib/fullcalendar/daygrid/main.js"></script>
+    <script src="~/lib/fullcalendar/timegrid/main.js"></script>
+    <script src="~/lib/fullcalendar/interaction/main.js"></script>
+
+    <script src="~/lib/package/src/xml2json.js"></script>
+
+    <script src="~/lib/fullcalendar/bootstrap/main.js"></script>
+    <script src="~/lib/fullcalendar/core/locales/tr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var calendarE1 = document.getElementById('calendar');
+            var selectedEvent = null;
+            var events1 = [];
+
+            var calendar = new FullCalendar.Calendar(calendarE1, {
+
+
+                plugins: ['interaction', 'dayGrid', 'timeGrid', 'bootstrap', 'momentTimezone'],
+                timeZone: 'Europe/Istanbul',
+                themeSystem: 'bootstrap4',
+                bootstrapFontAwesome: {
+
+                },
+                locale: "tr",
+                header: {
+
+                    left: 'prev, next',
+
+                    center: '',
+                    right: 'today, timeGridDay, timeGridThreeDay'
+
+
+
+                },
+                footer: {
+                    center: 'addEventButton'
+                },
+
+
+                minTime: '09:00:00',
+                maxTime: '18:00:00',
+                contentHeight: 500,
+
+                handleWindowResize: true,
+                slotDuration: '00:30:00',
+                slotLabelFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                },
+                allDaySlot: false,
+                eventStartEditable: true,
+                snapDuration: '00:15:00',
+                eventTextColor: 'White',
+                eventBackgroundColor: '#dc3c3c',
+                eventBorderColor: 'white',
+                businessHours: [
+                    {
+                        daysOfWeek: [1, 2, 3, 4, 5],
+                        startTime: '09:00',
+                        endTime: '18:00'
+                    },
+                    {
+                        daysOfWeek: [6],
+                        startTime: '09:00',
+                        endTime: '12:30',
+
+                    }, {
+                        daysOfWeek: [0],
+                        endTime: '09:00'
+
+                    }
+                ],
+                selectConstraint: "businessHours",
+
+                views: {
+
+                    timeGridThreeDay: {
+
+                        type: 'timeGrid',
+
+
+                        duration: { days: 3 },
+
+
+
+                    },
+
+                    timeGridOneDay: {
+
+                        type: 'timeGrid',
+
+                        duration: { days: 1 },
+
+
+
+                    }
+
+                },
+                events: events1
+
+                ,
+                eventClick: function (info) {
+                    $('#inputStartDateDetail').val(moment(info.event.start).format('DD/MM/YY HH:mm'));
+                    $('#inputEndDateDetail').val(moment(info.event.end).format('DD/MM/YY HH:mm'));
+                    $('#inputTitleDetail').val(info.event.extendedProps.Title);
+                    $('#inputDescriptionDetail').val(info.event.extendedProps.Description);
+                    $('#inputCompanyDetail').val(info.event.extendedProps.Company);
+                    $('#inputOwnerDetail').val(info.event.extendedProps.Owner);
+                    $('#inputOwnerCategory').val(info.event.extendedProps.Category);
+                    $('#detailModal').modal();
+                },
+                selectable: true,
+                select: function (selectionInfo) {
+
+                    selectedEvent = {
+                        id: 0,
+                        start: moment(selectionInfo.start),
+                        end: moment(selectionInfo.end),
+                        Title: "",
+                        Description: "",
+                        Company: "",
+                        Owner: "",
+                        Category: ""
+
+
+                    }
+                    openAddOrUpdateModal();
+
+                },
+                eventStartEditable: false,
+                eventDurationEditable: false,
+                editable: false,
+                buttonText: {
+
+
+
+                    today: 'B',
+
+                    month: 'Ay',
+
+                    week: 'Hafta',
+
+                    day: '1 Gün',
+
+                    list: 'Liste',
+
+                    timeGridThreeDay: "3 Gün",
+
+                    timeGridOneDay: "1 Gün"
+
+
+
+                },
+                titleFormat: {
+
+                    month: 'numeric',
+                    day: 'numeric',
+                    weekday: 'short'
+
+                },
+                columnHeaderFormat: {
+                    day: 'numeric',
+                    month: 'numeric',
+                    weekday: 'long'
+
+                },
+                defaultView: 'timeGridDay',
+
+
+
+
+                eventOverlap: function (stillEvent, movingEvent) {
+                    return stillEvent.allDay && movingEvent.allDay;
+                },
+                eventConstraint: {
+                    startTime: '09:00',
+                    endTime: '18:00'
+
+                },
+                //eventAllow: function (dropInfoEvent, draggedEvent) {
+
+                //},
+                //eventDragStart: function (info) {
+                //    console.log('başladı.');
+                //},
+                //eventDragStop: function (info) {
+                //    alert("Emin Misiniz ? ");
+
+                //},
+                //drop: function (eventDropInfo) {
+                //    console.log("droped");
+                //}
+
+
+
+            });
+
+
+
+
+            calendar.render();
+
+            getAppointments();
+
+
+            function getAppointments() {
+                var url = window.location.pathname;
+                var id = url.substring(url.lastIndexOf('/') + 1);
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://korteksdev/PortalWebApi/RezervasyonListesi/Getir/',
+                    data: { id: id },
+                    ContentType: "application/rss+xml",
+                    dataType: "xml",
+                    success: function (xml) {
+
+                        var bast = $(xml).find("RezervasyonListesi");
+                        console.log(typeof (bast));
+                        console.log(bast.length);
+
+                        $.each(bast, function (index, event) {
+
+
+
+                            var bastarihi = $(this).find("BasTarih").text();
+                            var bittarihi = $(this).find("BitTarih").text();
+                            var baslik = $(this).find("Baslik").text();
+                            var aciklama = $(this).find('Aciklama').text();
+                            var disfirma = $(this).find("DisFirma").text();
+                            var rsahibi = $(this).find("RezervasyonSahibi").text();
+                            
+
+
+                            events1.push({
+                                start: bastarihi,
+                                end: bittarihi,
+                                title: baslik,
+                                Title: baslik,
+                                Company: disfirma,
+                                Description: aciklama,
+                                Owner: rsahibi
+                            });
+
+
+
+                        });
+
+                        calendar.addEventSource(events1);
+
+
+
+
+
+
+
+
+
+
+
+
+                    },
+                    error: function (req, status, error) {
+                        console.log(status);
+                    }
+
+                });
+            }
+
+            function saveAppointment() {
+                let baslangicTarih = document.getElementById('inputStartDate').value;
+                let baslangicTarihSon = baslangicTarih.slice(0, 6) + "20" + baslangicTarih.slice(6, 15) + ":00";
+                console.log(baslangicTarihSon);
+                var bitisTarih = document.getElementById('inputEndDate').value;
+                var bitisTarihSon = bitisTarih.slice(0, 6) + "20" + bitisTarih.slice(6, 15) + ":00";
+                console.log(bitisTarihSon);
+                var baslik = document.getElementById('inputTitle').value;
+                var OdaID = @Context.Request.RouteValues["id"];
+                var aciklama = document.getElementById('inputDescription').value;
+                var sirket = document.getElementById('inputCompany').value;
+                var sahip = $("#inputOwner option:selected").text();
+                var kategori = document.getElementById('inputCategory').value;
+                var periyot = 0;
+                var periyotSure = 0;
+                var gereksinim = "a";
+                var sicil = document.getElementById('inputOwner').value;
+
+               
+                console.log(bitisTarih);
+                
+
+
+                var rezervasyon = '{Baslik:"' + baslik + '", BasTarih:"' + baslangicTarihSon + '", BitTarih:"' + bitisTarihSon + '", KategoriID:"' + kategori + '", Periyot:"' + periyot + '", PeriyotSure:"' + periyotSure + '", OdaID:"' + OdaID + '", Aciklama:"' + aciklama + '", Gereksinim:"laptop", DisFirma:"' + sirket + '", RezervasyonSahibi:"' + sahip + '", Sicil:"' + sicil + '"}';
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: 'http://10.10.3.216/PortalWebApi/RezervasyonListesi/kaydet',
+                    data: rezervasyon,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (data, textStatus, jQxhr) {
+                        alertify.success(data);
+                        getAppointments();
+                        $('#saveModal').modal('hide');
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                        alert(textStatus);
+                    }
+                });
+
+                
+            
+
+                   
+                
+
+
+
+
+
+            }
+
+
+
+            $('#btnSave').click(function () {
+
+                if (document.getElementById('inputTitle').value == "" || document.getElementById('inputDescription').value == "") {
+                    console.log(document.getElementById('inputStartDate').value);
+                    var error1 = alertify.error("Zorunlu Alanları Doldurunuz !");
+                    error1.delay(1.5);
+                } else if (document.getElementById('inputStartDate').value > document.getElementById('inputEndDate').value) {
+                    var error2 = alertify.error("Toplantının sona erme zamanı, başlangıç zamanından erken olamaz. ");
+                    error2.delay(1.5);
+
+
+                } else {
+                    
+                    saveAppointment();
+
+                }
+
+            });
+
+
+            function openAddOrUpdateModal() {
+
+                if (selectedEvent != null) {
+                    $('#inputStartDate').val(selectedEvent.start.format('DD/MM/YY HH:mm'));
+                    $('#inputEndDate').val(selectedEvent.end.format('DD/MM/YY HH:mm'));
+                    $('#inputTitle').val(selectedEvent.Title);
+                    $('#inputDescription').val(selectedEvent.Description);
+                    $('#inputCompany').val(selectedEvent.Company);
+                    $('#inputOwner').val(selectedEvent.Owner);
+                }
+
+                $('#saveModal').modal();
+            }
+
+
+
+        });
+
+
+
+
+
+        $(function () {
+            $('#datetimepicker1,#datetimepicker2').datetimepicker({
+                locale: 'tr',
+                format: 'DD/MM/YY HH:mm',
+            });
+        });
+
+        var rzSahipleri = [];
+        var rzSSicil = [];
+
+        $(document).ready(function () {
+            load_ddlFrom();
+        });
+        function load_ddlFrom() {
+            $.ajax({
+                type: "GET",
+                contentType: "application/rss+xml",
+                url: "http://10.10.3.216/PortalWebApi/RezPersonelListesi/Getir",
+                data: "{}",
+                dataType:"xml",
+                success: function (xml) {
+                    var personelListesi = $(xml).find("RezPersonelListesi");
+
+                    $.each(personelListesi, function (index, event) {
+
+                        var AdSoyad = $(this).find("AdSoyad").text();
+                        var sicil = $(this).find("Sicil").text();
+
+                        rzSahipleri.push(
+                            AdSoyad
+                        );
+                        rzSSicil.push(
+                            sicil
+                        );
+                        var markup = "<option value='0'> Rezervasyon Sahibi Seç </option>";
+                        for (var i = 0; i < rzSahipleri.length; i++) {
+                            markup += "<option value=" + rzSSicil[i] + ">" + rzSahipleri[i] + "</option >";
+                        }
+                      $('#inputOwner').html(markup);
+
+
+
+
+
+                    });
+                },
+                error: function (Result) {
+                    
+                }
+            });
+        }
+
+
+    </script>
+
+}@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
